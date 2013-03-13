@@ -11,3 +11,12 @@
 *.lai
 *.la
 *.a
+
+# Binaries
+bin/*
+
+# Qt-Creator generated stuff
+CMakeLists.txt.user
+
+# Temporary file
+*~
