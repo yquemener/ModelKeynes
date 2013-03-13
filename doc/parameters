@@ -1,0 +1,9 @@
+This is a list of all the parameters that can potentially influence the simulation in a meaningful way.
+
+Ratio of selling rounds vs processing rounds
+--------------------------------------------
+IndustrialNode gives a number of iteration for bots to process transactions and then iterates the industrial process, transforming raw goods into processed goods. The ratio between these numbers of iteration can have an influence on trading strategies.
+
+Transformation ratio
+--------------------
+The number of goods needed to produce one "unit" of output
