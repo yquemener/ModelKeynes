@@ -19,8 +19,12 @@ void SimulationNetwork::iterate()
     for(auto it = markets.begin(); it!=markets.end(); it++)
     {
       Market * mark = *it;
+      list<order> accepted;
       mark->solve();
-      // TODO : processed accepted transactions !
+      for(auto ito = accepted.begin();it!=accepted.end();it++)
+      {
+
+      }
     }
   }
   for(auto it = industries.begin(); it!=industries.end(); it++)

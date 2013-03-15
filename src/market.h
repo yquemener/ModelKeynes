@@ -2,27 +2,12 @@
 #define MARKET_H
 
 #include <list>
+#include "types.h"
 
 using std::list;
 
 namespace Econ
 {
-
-/// Identification of an economical agent (typically a bot) able to pass orders
-/// to a market.
-typedef int agent_id;
-
-/// Nature of an order : buy or sell
-typedef enum{BUY, SELL} order_t;
-
-/// Structure describing a sell or buy orders passed on the market
-struct order
-{
-  agent_id author;
-  order_t type;
-  float volume;
-  float price;
-};
 
 /// Class simulating the market of a single good.
 class Market

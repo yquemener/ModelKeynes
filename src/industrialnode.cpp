@@ -16,6 +16,7 @@ void IndustrialNode::iterateTransactions()
     Bot* b = *it;
     list<order> orders;
     orders = b->makeTradingDecisions();
+    // TODO : validate that orders are valid (enough cash and enough stock)
     for(auto ito = orders.begin(); ito!=orders.end();ito++)
     {
       order o = *ito;
