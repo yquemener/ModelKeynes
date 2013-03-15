@@ -14,9 +14,16 @@ void IndustrialNode::iterateTransactions()
   for(auto it = m_bots.begin(); it!=m_bots.end(); it++)
   {
     Bot* b = *it;
+    list<order>raw_orders = b->makeTradingDecisions();
+
     list<order> orders;
-    orders = b->makeTradingDecisions();
-    // TODO : validate that orders are valid (enough cash and enough stock)
+    for(auto ito = raw_orders.begin(); ito!=raw_orders.end(); ito++)
+    {
+      // TODO : validate that orders are valid (enough cash and enough stock)
+      order newo = *ito;
+      newo.author = b->getId();
+      orders.push_back(newo);
+    }
     for(auto ito = orders.begin(); ito!=orders.end();ito++)
     {
       order o = *ito;

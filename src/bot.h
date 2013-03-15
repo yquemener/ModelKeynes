@@ -33,6 +33,8 @@ public:
 
   virtual bool isBankrupt() {return cash<0; }
 
+  agent_id getId() {return m_id;}
+
   // These are public : industrialNode needs to write to them and other actors
   // can read them
   float                    cash;
