@@ -91,7 +91,7 @@ float BotRandomGaussian::makeProcessingDecisions()
   return std::max(0.0f, units_to_process);
 }
 
-static std::default_random_engine& s_rng()
+std::default_random_engine& BotRandomGaussian::s_rng()
 {
   static std::default_random_engine rng;
   return rng;

@@ -22,14 +22,14 @@ public:
   Bot(IndustrialNode* home);
 
   /// Reads new information from the IndustrialNode
-  virtual void updateInfo();
+  virtual void updateInfo() = 0;
 
   /// generates buying/selling orders
-  virtual std::list<order> makeTradingDecisions();
+  virtual std::list<order> makeTradingDecisions() = 0;
 
   /// generates processing orders. Only a float is necessary : only one kind
   /// of goods can be processed
-  virtual float makeProcessingDecisions();
+  virtual float makeProcessingDecisions() = 0;
 
   virtual bool isBankrupt() {return cash<0; }
 

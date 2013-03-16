@@ -1,6 +1,7 @@
 #include "industrialnode.h"
 #include "bot.h"
 #include "market.h"
+#include <list>
 
 namespace Econ
 {
@@ -36,6 +37,27 @@ void IndustrialNode::iterateTransactions()
       {
         m_OutputMarkets[o.type]->orders.push_back(o);
       }
+    }
+  }
+}
+
+void IndustrialNode::iterateIndustry()
+{
+  for(auto it = m_bots.begin(); it!=m_bots.end(); it++)
+  {
+    Bot* b = *it;
+    float raw_order = b->makeProcessingDecisions();
+    // TODO : validate that the order is valid (enough enough stock)
+
+    for(auto iti = m_unitInput.begin(); iti!=m_unitInput.end(); iti++)
+    {
+      std::pair<good_t, float> ui = *iti;
+      b->stock[ui.first] -= ui.second * raw_order;
+    }
+    for(auto ito = m_unitInput.begin(); ito!=m_unitInput.end(); ito++)
+    {
+      std::pair<good_t, float> uo = *ito;
+      b->stock[uo.first] += uo.second * raw_order;
     }
   }
 }

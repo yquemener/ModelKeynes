@@ -24,7 +24,7 @@ public:
   list<order> solve();
 
   /// Returns the last computed price
-  float currentPrice();
+  float currentPrice() {return m_LastPrice;}
 
 private:
   float m_LastPrice;
