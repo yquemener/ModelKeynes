@@ -1,5 +1,6 @@
 #ifndef TYPES_H
 #define TYPES_H
+#include "good.h"
 
 namespace Econ
 {
@@ -16,6 +17,7 @@ struct order
 {
   agent_id author;
   order_t type;
+  good_t good;
   float volume;
   float price;
 };

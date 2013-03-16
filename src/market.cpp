@@ -66,6 +66,7 @@ list<order> Market::solve()
       }
     }
   }
+  orders.clear();
   return ret;
 }
 

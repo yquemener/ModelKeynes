@@ -26,6 +26,9 @@ public:
   /// Returns the last computed price
   float currentPrice() {return m_LastPrice;}
 
+  /// Returns the last computed volume
+  float currentVolume() {return m_LastVolume;}
+
 private:
   float m_LastPrice;
   float m_LastVolume;

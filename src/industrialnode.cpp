@@ -28,14 +28,14 @@ void IndustrialNode::iterateTransactions()
     for(auto ito = orders.begin(); ito!=orders.end();ito++)
     {
       order o = *ito;
-      if(m_InputMarkets.find(o.type)!=m_InputMarkets.end())
+      if(m_InputMarkets.find(o.good)!=m_InputMarkets.end())
       {
-        m_InputMarkets[o.type]->orders.push_back(o);
+        m_InputMarkets[o.good]->orders.push_back(o);
       }
 
-      if(m_OutputMarkets.find(o.type)!=m_OutputMarkets.end())
+      if(m_OutputMarkets.find(o.good)!=m_OutputMarkets.end())
       {
-        m_OutputMarkets[o.type]->orders.push_back(o);
+        m_OutputMarkets[o.good]->orders.push_back(o);
       }
     }
   }

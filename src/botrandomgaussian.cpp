@@ -31,11 +31,11 @@ list<order> BotRandomGaussian::makeTradingDecisions()
       it++)
   {
     pair<good_t, float> ui = *it;
-    float uprice = ui.second * m_home->m_InputMarkets[ui.first]->currentPrice();
+    float uprice = m_home->m_InputMarkets[ui.first]->currentPrice();
     float rand_var = distribution(s_rng());
     uprice *= rand_var;
     price_to_pay[ui.first] = uprice;
-    total_ppu += uprice;
+    total_ppu += uprice * ui.second;
   }
 
   float budget = this->cash/2;
@@ -48,9 +48,10 @@ list<order> BotRandomGaussian::makeTradingDecisions()
     pair<good_t, float> ui = *it;
     o.author = m_id;
     o.type = BUY;
+    o.good = ui.first;
     o.price = price_to_pay[ui.first];
     o.volume = ui.second * units_to_buy;
-    ret.push_back(o);;
+    ret.push_back(o);
   }
 
   for(auto it = m_home->m_OutputMarkets.begin();
@@ -61,10 +62,12 @@ list<order> BotRandomGaussian::makeTradingDecisions()
     Market *m = it->second;
     float rand_var = distribution(s_rng());
     order o;
+    o.good = g;
     o.price = m->currentPrice() * rand_var;
     o.volume = this->stock[g];
     o.author = this->m_id;
     o.type = SELL;
+    ret.push_back(o);
   }
 
   return ret;

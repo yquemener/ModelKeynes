@@ -17,6 +17,7 @@ void SimulationNetwork::iterate()
       indus->iterateTransactions();
     }
 
+    // TODO : move this into industrialNode
     for(auto it = markets.begin(); it!=markets.end(); it++)
     {
       Market * mark = *it;
@@ -29,12 +30,12 @@ void SimulationNetwork::iterate()
         if(o.type == BUY)
         {
           b->cash -= o.price * o.volume;
-          b->stock[o.type] += o.volume;
+          b->stock[o.good] += o.volume;
         }
         else if(o.type == SELL)
         {
           b->cash += o.price * o.volume;
-          b->stock[o.type] -= o.volume;
+          b->stock[o.good] -= o.volume;
         }
       }
     }
