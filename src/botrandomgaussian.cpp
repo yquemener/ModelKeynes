@@ -1,6 +1,8 @@
 #include "botrandomgaussian.h"
 #include "industrialnode.h"
 #include <random>
+#include <time.h>
+#include <iostream>
 
 using std::pair;
 using std::list;
@@ -81,7 +83,8 @@ float BotRandomGaussian::makeProcessingDecisions()
       it!=m_home->m_unitInput.end();
       it++)
   {
-    pair<good_t, float> ui;
+    pair<good_t, float> ui = *it;
+    if(ui.second == 0) continue;
     if(this->stock.find(ui.first)!=this->stock.end())
     {
       float curp = this->stock[ui.first]/ui.second;
@@ -97,6 +100,14 @@ float BotRandomGaussian::makeProcessingDecisions()
 std::default_random_engine& BotRandomGaussian::s_rng()
 {
   static std::default_random_engine rng;
+  static int first=0;
+  if(first==0)
+  {
+    unsigned int seed = time(NULL);
+    rng.seed(seed);
+    std::cout << "seed = " << seed << std::endl;
+    first++;
+  }
   return rng;
 }
 

@@ -11,12 +11,13 @@ int main(int argc, char** argv)
   // Init goods
   typedef enum{WHEAT=0, FLOUR=1, BREAD=2} good_s;
 
-  s_goodName[WHEAT] = "Wheat";
-  s_goodName[FLOUR] = "Flour";
-  s_goodName[BREAD] = "Bread";
+  s_goodName()[WHEAT] = "Wheat";
+  s_goodName()[FLOUR] = "Flour";
+  s_goodName()[BREAD] = "Bread";
 
   // Init network
-  const int BOTS_PER_NODE = 15;
+  const int BOTS_PER_NODE = 30;
+  const float BOTS_SIGMA = 0.1f;
   SimulationNetwork net;
   Market marketWheat;
   Market marketFlour;
@@ -32,14 +33,11 @@ int main(int argc, char** argv)
   for(int k=0;k<BOTS_PER_NODE;k++)
   {
     BotRandomGaussian * brg;
-    brg = new BotRandomGaussian(&indusFarming, 0.1f);
-    brg->stock[WHEAT] = 1.0f;
-    brg->stock[FLOUR] = 1.0f;
-    brg->stock[BREAD] = 1.0f;
+    brg = new BotRandomGaussian(&indusFarming, BOTS_SIGMA);
     brg->cash = 10.0;
     indusFarming.m_bots.push_back(brg);
   }
-
+  indusFarming.m_bots.front()->stock[BREAD]=1.0;
 
   indusMilling.m_unitInput.push_back(pair<good_t,float>(WHEAT, 1.0f));
   indusMilling.m_unitOutput.push_back(pair<good_t,float>(FLOUR, 1.0f));
@@ -48,10 +46,7 @@ int main(int argc, char** argv)
   for(int k=0;k<BOTS_PER_NODE;k++)
   {
     BotRandomGaussian * brg;
-    brg = new BotRandomGaussian(&indusMilling, 0.1f);
-    brg->stock[WHEAT] = 1.0f;
-    brg->stock[FLOUR] = 1.0f;
-    brg->stock[BREAD] = 1.0f;
+    brg = new BotRandomGaussian(&indusMilling, BOTS_SIGMA);
     brg->cash = 10.0;
     indusMilling.m_bots.push_back(brg);
   }
@@ -63,10 +58,7 @@ int main(int argc, char** argv)
   for(int k=0;k<BOTS_PER_NODE;k++)
   {
     BotRandomGaussian * brg;
-    brg = new BotRandomGaussian(&indusBakery, 0.1f);
-    brg->stock[WHEAT] = 1.0f;
-    brg->stock[FLOUR] = 1.0f;
-    brg->stock[BREAD] = 1.0f;
+    brg = new BotRandomGaussian(&indusBakery, BOTS_SIGMA);
     brg->cash = 10.0;
     indusBakery.m_bots.push_back(brg);
   }
@@ -79,17 +71,28 @@ int main(int argc, char** argv)
   net.markets.push_back(&marketBread);
   net.solveProcessRatio = 1;
 
-  for(int k=0;k<1000;k++)
+  for(int k=0;k<100;k++)
   //while(1)
   {
     net.iterate();
-    cout << "Price wheat : " << marketWheat.currentPrice();
-    cout << " Volume : " << marketWheat.currentVolume() << endl;
+    cout << "Price wheat : "  << marketWheat.currentPrice();
+    cout << "   Volume : " << marketWheat.currentVolume() << endl;
     cout << "Price flour : " << marketFlour.currentPrice();
-    cout << " Volume : " << marketFlour.currentVolume() << endl;
+    cout << "   Volume : " << marketFlour.currentVolume() << endl;
     cout << "Price bread : " << marketBread.currentPrice();
-    cout << " Volume : " << marketBread.currentVolume() << endl;
+    cout << "   Volume : " << marketBread.currentVolume() << endl;
     cout << endl;
+    /*for(auto it = net.industries.begin(); it!=net.industries.end(); it++)
+    {
+      IndustrialNode * indus = *it;
+      for(auto it2 = indus->m_bots.begin(); it2!= indus->m_bots.end(); it2++)
+      {
+        Bot * b = *it2;
+        cout << b->displayStock() << endl;
+      }
+      cout << endl;
+    }
+    cout << endl;*/
   }
 
   return 0;

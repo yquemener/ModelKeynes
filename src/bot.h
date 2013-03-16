@@ -1,6 +1,7 @@
 #ifndef BOT_H
 #define BOT_H
 
+#include <string>
 #include <list>
 #include <map>
 #include "types.h"
@@ -53,6 +54,8 @@ public:
     static agent_id currentId=0;
     return currentId++;
   }
+
+  std::string displayStock();
 
 protected:
   agent_id        m_id;

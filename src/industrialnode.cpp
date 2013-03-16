@@ -54,7 +54,7 @@ void IndustrialNode::iterateIndustry()
       std::pair<good_t, float> ui = *iti;
       b->stock[ui.first] -= ui.second * raw_order;
     }
-    for(auto ito = m_unitInput.begin(); ito!=m_unitInput.end(); ito++)
+    for(auto ito = m_unitOutput.begin(); ito!=m_unitOutput.end(); ito++)
     {
       std::pair<good_t, float> uo = *ito;
       b->stock[uo.first] += uo.second * raw_order;

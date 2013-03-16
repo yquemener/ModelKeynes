@@ -35,7 +35,7 @@ list<order> Market::solve()
   for(auto it = orders.begin(); it!=orders.end(); it++)
   {
     order o = *it;
-    if((o.type==BUY)&&(o.price>bestprice))
+    if((o.type==BUY)&&(o.price>=bestprice))
     {
       if(o.volume<=volume_to_buy)
       {
@@ -50,7 +50,7 @@ list<order> Market::solve()
         ret.push_back(newo);
       }
     }
-    if((o.type==SELL)&&(o.price<bestprice))
+    if((o.type==SELL)&&(o.price<=bestprice))
     {
       if(o.volume<=volume_to_sell)
       {
