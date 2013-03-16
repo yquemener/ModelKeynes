@@ -54,7 +54,7 @@ public:
     return currentId++;
   }
 
-private:
+protected:
   agent_id        m_id;
   IndustrialNode* m_home;
 

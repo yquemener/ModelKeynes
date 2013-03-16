@@ -14,7 +14,8 @@ SET(MARKETMODEL_SOURCE
       src/market.cpp
       src/industrialnode.cpp
       src/bot.cpp
-      src/simulationnetwork.cpp)
+      src/simulationnetwork.cpp
+      src/botrandomgaussian.cpp)
 
 ADD_LIBRARY(MarketModel SHARED ${MARKETMODEL_SOURCE})
 

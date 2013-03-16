@@ -37,7 +37,6 @@ public:
   /// Removes bankrupted bots from the competition
   void cleanUpBots();
 
-private:
   map<good_t, Market*> m_InputMarkets;
   map<good_t, Market*> m_OutputMarkets;
   list<Bot*> m_bots;
